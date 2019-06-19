@@ -51,35 +51,36 @@ const prestamos = [
     }
 ]
 // MIDDLE
-app.get('/prestamos', (req, res, next) => {
-    console.log('estamos en un middle')
-    const prestamo =  prestamos.find(e => e.id === Number(req.query.id))
-    if(prestamo){
-        req.prestamo = prestamo
-        next()
-    }else{
-        res.redirect('/nope')
-    }
-});
+// app.get('/prestamos', (req, res, next) => {
+//     console.log('estamos en un middle')
+//     const prestamo =  prestamos.find(e => e.id === Number(req.query.id))
+//     if(prestamo){
+//         req.prestamo = prestamo
+//         next()
+//     }else{
+//         res.redirect('/nope')
+//     }
+// });
 
 app.get('/nope', (req, res) => {
     res.json({mensaje: 'usted no puede pasar a esta ruta'})
 })
 
-app.get('/prestamos', (req, res) => {
+// app.get('/prestamos', (req, res) => {
 
-    // const value = req.query
-    // const keys = Object.keys(value)
-    // const filter = keys.find(e => e === 'filter')
-    // if(filter){
-    //     const id = value[filter]
-    //     const filterData = prestamos.find(e => e.id === Number(id))
-    //     return res.json({result:filterData})
-    // }
-    console.log(req.prestamo)
-    // console.log('estoy en la ruta')
-    return res.json({result:req.prestamo})
-})
+//     // const value = req.query
+//     // const keys = Object.keys(value)
+//     // const filter = keys.find(e => e === 'filter')
+//     // if(filter){
+//     //     const id = value[filter]
+//     //     const filterData = prestamos.find(e => e.id === Number(id))
+//     //     return res.json({result:filterData})
+//     // }
+//     console.log(req.prestamo)
+//     // console.log('estoy en la ruta')
+//     return res.json({result:req.prestamo})
+// })
+
 
 
 // RUTA DINAMICA
@@ -90,11 +91,40 @@ app.get('/prestamos/:id', (req, res) => {
 })
 
 
-// POST 
-app.post('/prestamos', (req, res) => {
+// // POST 
+// app.post('/prestamos', (req, res) => {
+//     const body = req.body
+//     console.log(body)
+//     return res.json(prestamos)
+// })
+
+const users = [
+    {
+        nombre: 'pepe',
+        pass: '123'
+    },
+    {
+        nombre: 'agu',
+        pass: '123'
+    }
+]
+
+app.post('/login', (req, res, next) => {
     const body = req.body
-    console.log(body)
-    return res.json(prestamos)
+    const {nombre, pass} = body
+    // find
+    const user = users.find(e => e.nombre === nombre)
+    // validacion
+    if(user && user.pass === pass){
+        req.user = user
+        next()
+    }else{
+        res.redirect('/nope')
+    }
+})
+
+app.post('/login', (req, res) => {
+    res.json({user: req.user})
 })
 
 app.listen(3000)
