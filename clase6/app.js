@@ -54,7 +54,8 @@ User
 });
   
   // Create a new user
-  User.create({ firstName: "Jane", lastName: "Doe" }).then(jane => {
+  User.create({ firstName: "Jane", lastName: "Doe" })
+  .then(jane => {
     console.log("Jane's auto-generated ID:", jane.id);
   });
   
