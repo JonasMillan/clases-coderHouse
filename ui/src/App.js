@@ -6,6 +6,7 @@ import './App.css';
 // import FizzBuzz from './components/FizzBuzz.js';
 // import Container from './components/Container.js';
 // import FetchContainer from './components/FetchContainer'
+import Todo from './components/Todo'
 // const lista = [
 //   {
 //     nombre: 'jonas',
@@ -50,17 +51,14 @@ class App extends Component {
 
         {/* handler asincrono */}
         {
-          (this.state.json !== '') && this.state.json.result.nombre
+          // (this.state.json !== '') && this.state.json.result.nombre
         }
-
-        {/* {
-          (this.state.show) ? 
-          <FetchContainer
-            json={this.state.json}
-          /> :
-          ''
-        }
-        <button onClick={this.toggle}>SHOW</button> */}
+{/* 
+        {
+          // (this.state.show) ? <FetchContainer json={this.state.json} /> : ''
+        } */}
+        {/* <button onClick={this.toggle}>SHOW</button> */}
+        <Todo/>
       </div>
     )
   }
