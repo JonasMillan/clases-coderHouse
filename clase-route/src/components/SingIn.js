@@ -20,24 +20,27 @@ const styles = theme => ({
     menu: {
         width: 200,
     },
+    button: {
+        margin: theme.spacing(),
+    },
+
 });
 
-class Formulario extends Component {
+class SingIn extends Component {
     state = {
         email:'',
         password:''
     };
-    registerEmailPass = () => {
-        const userData = { email: this.state.email, password: this.state.password}
-        auth.register(userData, () => this.props.history.push('/login'))
+    authEmailPass = () => {
+        const userData = {email:this.state.email,password:this.state.password}
+        auth.login(userData, () => this.props.history.push('/app'))
     }
     handleChange = name => event => this.setState({ [name]: event.target.value })
     render () {
         const {classes} = this.props
-        
         return (
             <div>
-                <h1> Register </h1>
+                <h1> Login </h1>
                 <form className={classes.container} noValidate autoComplete="off">
                     <TextField
                         id="standard-email"
@@ -58,8 +61,8 @@ class Formulario extends Component {
                         autoComplete="current-password"
                         margin="normal"
                     />
-                    <Button onClick={this.registerEmailPass} variant="contained" color="primary" className={classes.button}>
-                        Register
+                    <Button onClick={this.authEmailPass} variant="contained" color="primary" className={classes.button}>
+                        login
                     </Button>
                 </form>
             </div>
@@ -67,4 +70,4 @@ class Formulario extends Component {
     }
 }
 
-export default withStyles(styles)(Formulario)
+export default withStyles(styles)(SingIn)

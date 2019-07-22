@@ -1,14 +1,13 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import auth from '../auth'
 import { withRouter } from 'react-router-dom'
+
 
 const styles = {
   root: {
@@ -27,26 +26,38 @@ const styles = {
 };
 
 function NavBarCustom(props) {
-    console.log(props)
   const { classes } = props;
   return (
     <div className={classes.root}>
       <AppBar className={classes.nav} position="static">
         <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" color="inherit" className={classes.grow}>
-            News
+            NOT PINTEREST
           </Typography>
-          
-            <Button color="inherit" onClick={
-                () => {
-                    auth.login(() => {
-                        props.history.push('/app')
-                    })
-                }
-            }>Login</Button>
+          {
+            (auth.user === null) ? 
+            (
+              <Fragment>
+                <Button color="inherit" onClick={() => props.history.push('/login')}>Login</Button>
+                <Button color="inherit" onClick={() => props.history.push('/register')}>Register</Button>
+              </Fragment>
+            )
+            : 
+            (
+              <Fragment>
+                <Typography variant="h6" color="inherit" className={classes.grow}>
+                  {auth.user.email}
+                </Typography>
+                <Button color="inherit" onClick={
+                  () => {
+                      auth.logout(() => {
+                          props.history.push('/')
+                      })
+                  }
+              }>logout</Button>
+              </Fragment>
+            )
+          }
         </Toolbar>
       </AppBar>
     </div>
